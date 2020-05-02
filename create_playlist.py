@@ -17,9 +17,11 @@ def main(music_folders=None, music_folder_parent=None):
         songs_in_folder = list(fold.glob('*.mp3'))
         if not songs_in_folder:
             songs_in_folder = list(fold.glob('*.flac'))
-        songs_in_folder = [(x.name + '\n') for x in songs_in_folder]
+        if not songs_in_folder:
+            songs_in_folder = list(fold.glob('*.m4a'))
 
         if songs_in_folder:
+            songs_in_folder = [(x.name + '\n') for x in songs_in_folder]
             try:
                 with open(str(fold / (str(fold.name) + '.m3u')), 'w') as fn:
                     fn.writelines(songs_in_folder)

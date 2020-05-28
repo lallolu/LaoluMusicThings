@@ -14,6 +14,10 @@ def main(music_folders=None, music_folder_parent=None):
         music_folders = [Path(music_folders)]
 
     for fold in music_folders:
+        if not Path.exists(fold):
+            print(f'{fold} does not exist. Hint: check your back-slash "\\" and front-slash "/"')
+            continue
+
         songs_in_folder = list(fold.glob('*.mp3'))
         if not songs_in_folder:
             songs_in_folder = list(fold.glob('*.flac'))
@@ -23,10 +27,11 @@ def main(music_folders=None, music_folder_parent=None):
         if songs_in_folder:
             songs_in_folder = [(x.name + '\n') for x in songs_in_folder]
             try:
-                with open(str(fold / (str(fold.name) + '.m3u')), 'w') as fn:
+                with open(str(fold / (str(fold.name) + '.m3u')), 'w', encoding="utf-8") as fn:
                     fn.writelines(songs_in_folder)
             except UnicodeEncodeError as err:
                 print(f'{err}')
+                print(f'Check that the file names do not have any special character.')
 
 
 if __name__ == '__main__':

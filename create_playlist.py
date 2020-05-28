@@ -31,7 +31,7 @@ def main(music_folders=None, music_folder_parent=None):
                     fn.writelines(songs_in_folder)
             except UnicodeEncodeError as err:
                 print(f'{err}')
-                print(f'Check that the file names do not have any special character.')
+                print(f'Check that file names do not have any special character.')
 
 
 if __name__ == '__main__':
